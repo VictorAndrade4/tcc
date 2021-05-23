@@ -1,2 +1,6 @@
-<app-map></app-map>
-<app-input></app-input>
+<app-toolbar></app-toolbar>
+<div class="main-div">
+    <app-input name="Estado" placeholder="Ex: Minas Gerais" [options]="['São Paulo']"></app-input>
+    <app-input name="Cidade" placeholder="Ex: Belo Horizonte" [options]="['Ouro Branco']"></app-input>
+    <app-map></app-map>
+</div>
