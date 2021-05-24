@@ -1,8 +1,25 @@
-<div *ngIf="apiLoaded | async; else loading">
-    <google-map width="100%" [options]="options">
-        <map-kml-layer [url]="kmlPath"></map-kml-layer>
-    </google-map>
-</div>
-<ng-template #loading>
-    <mat-spinner class="loading"></mat-spinner>
-</ng-template>
+<mat-accordion>
+    <mat-expansion-panel expanded (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Mapa
+            </mat-panel-title>
+            <mat-panel-description>
+                Setores censitários
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- Content -->
+        <ng-template matExpansionPanelContent>
+            <div *ngIf="apiLoaded | async; else loading">
+                <google-map width="100%" [options]="options">
+                    <map-kml-layer [url]="kmlPath"></map-kml-layer>
+                </google-map>
+            </div>
+            <ng-template #loading>
+                <mat-spinner class="loading"></mat-spinner>
+            </ng-template>
+        </ng-template>
+
+    </mat-expansion-panel>
+</mat-accordion>

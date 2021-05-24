@@ -1,0 +1,16 @@
+<mat-card class="card">
+    <app-state-selector [states]="states"></app-state-selector>
+    
+    <div *ngIf="cityOptions | async as options">
+        <app-input 
+            name="Cidade" 
+            placeholder="Ex: Belo Horizonte" 
+            [options]="options"
+        ></app-input>
+    </div>
+
+    <button mat-raised-button color="primary">
+        Calcular
+        <mat-icon>search</mat-icon>
+    </button>
+</mat-card>

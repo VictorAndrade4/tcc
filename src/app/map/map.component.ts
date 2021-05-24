@@ -14,6 +14,7 @@ import {
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements OnInit {
+  panelOpenState = true;
   apiLoaded: Observable<boolean>;
   options: google.maps.MapOptions = {
     center: { lat: OURO_BRANCO_LAT, lng: OURO_BRANCO_LNG },
