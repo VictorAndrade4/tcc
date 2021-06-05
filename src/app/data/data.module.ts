@@ -12,9 +12,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { StateSelectorComponent } from './state-selector/state-selector.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MapComponent } from './map/map.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
-  declarations: [InputComponent, FormComponent, StateSelectorComponent],
+  declarations: [
+    InputComponent,
+    FormComponent,
+    StateSelectorComponent,
+    MapComponent,
+  ],
   imports: [
     CommonModule,
     MatAutocompleteModule,
@@ -26,7 +35,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
+    GoogleMapsModule,
+    MatProgressSpinnerModule,
+    MatExpansionModule,
   ],
-  exports: [FormComponent],
+  exports: [FormComponent, MapComponent],
 })
 export class DataModule {}

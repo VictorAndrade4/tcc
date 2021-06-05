@@ -6,7 +6,7 @@ import {
   OURO_BRANCO_LNG,
   OURO_BRANCO_LAT,
   GOOGLE_API_KEY,
-} from '../utils/const';
+} from '../../utils/const';
 
 @Component({
   selector: 'app-map',
