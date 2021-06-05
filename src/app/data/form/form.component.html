@@ -1,7 +1,7 @@
 <mat-card class="card">
     <app-state-selector [states]="states"></app-state-selector>
     
-    <div *ngIf="cityOptions | async as options">
+    <div *ngIf="cityOptions | async as options; else inputDisabled">
         <app-input 
             name="Cidade" 
             placeholder="Ex: Belo Horizonte" 
@@ -14,3 +14,7 @@
         <mat-icon>search</mat-icon>
     </button>
 </mat-card>
+
+<ng-template #inputDisabled>
+    <app-input class="inputDisabled" name="Carregando..." ></app-input>
+</ng-template>

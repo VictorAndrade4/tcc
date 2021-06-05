@@ -46,8 +46,7 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getStateObservable().subscribe((state) => {
-      console.log(state);
-      this.cityOptions = this.dataService.getCityOptions();
+      this.cityOptions = this.dataService.getCityOptions(state);
     });
   }
 }

@@ -3,3 +3,7 @@
   justify-items: start;
   margin-bottom: 12px;
 }
+
+.inputDisabled {
+  pointer-events: none;
+}

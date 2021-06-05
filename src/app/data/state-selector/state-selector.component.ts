@@ -8,20 +8,13 @@ import { DataService } from '../data.service';
   styleUrls: ['./state-selector.component.css'],
 })
 export class StateSelectorComponent implements OnInit {
-  private state = '';
+  @Input() states: State[] = [];
 
   constructor(private dataService: DataService) {}
 
-  get stateSelected() {
-    return this.state;
-  }
-
   set stateSelected(value: string) {
-    this.state = value;
     this.dataService.state = value;
   }
-
-  @Input() states: State[] = [];
 
   ngOnInit(): void {}
 }
