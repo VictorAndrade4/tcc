@@ -16,6 +16,9 @@ import { MapComponent } from './map/map.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DragAndDropComponent } from './drag-and-drop/drag-and-drop.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     FormComponent,
     StateSelectorComponent,
     MapComponent,
+    DragAndDropComponent,
   ],
   imports: [
     CommonModule,
@@ -38,7 +42,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     GoogleMapsModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
+    DragDropModule,
+    MatProgressBarModule,
   ],
-  exports: [FormComponent, MapComponent],
+  exports: [FormComponent, MapComponent, DragAndDropComponent],
 })
 export class DataModule {}

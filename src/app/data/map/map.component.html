@@ -13,7 +13,7 @@
         <ng-template matExpansionPanelContent>
             <div *ngIf="apiLoaded | async; else loading">
                 <google-map width="100%" [options]="options">
-                    <map-kml-layer [url]="kmlPath"></map-kml-layer>
+                    <map-kml-layer [url]="kmlPath" (kmlClick)="handleKmlClick($event)"></map-kml-layer>
                 </google-map>
             </div>
             <ng-template #loading>

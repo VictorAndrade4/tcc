@@ -21,16 +21,19 @@ export class MapComponent implements OnInit {
   kmlPath = '';
 
   constructor(
-    httpClient: HttpClient,
     private dataService: DataService,
     private mapService: MapService
   ) {
     this.apiLoaded = mapService.googleMapsApiLoaded();
   }
 
+  handleKmlClick(event: google.maps.KmlMouseEvent) {
+    const codigoSetorCensitario = event.featureData.name;
+    console.log(codigoSetorCensitario);
+  }
+
   ngOnInit(): void {
-    this.dataService.getCityObservable().subscribe((city) => {
-      console.log('MAPA IDENTIFICOU:', city);
+    this.dataService.getCityObservable().subscribe(() => {
       this.kmlPath =
         'https://storage.googleapis.com/tcc-anatel-dados/3145901_Ouro%20Branco_Setores_2020.kml';
     });

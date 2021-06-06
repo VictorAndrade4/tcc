@@ -3,6 +3,12 @@ import { Observable, Observer, of, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { BaseService } from '../utils/base.service';
 
+export interface AreaDto {
+  neighborhood: string;
+  sectorCode: string;
+  sectorType: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -37,5 +43,11 @@ export class DataService extends BaseService {
   getCityOptions(uf: string) {
     if (!uf) return of(['Escolha o Estado']);
     return this.get<Array<string>>(`/cobertura/cities?uf=${uf}`);
+  }
+
+  getAreasFromCity() {
+    return this.get<Array<AreaDto>>(
+      `/cobertura/areas?uf=${this.selectedState}&city=${this.selectedCity}`
+    ).toPromise();
   }
 }

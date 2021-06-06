@@ -1,0 +1,11 @@
+.disclaimer {
+  display: flex;
+}
+
+.p-disclaimer {
+  margin: 3px 0 0 4px;
+}
+
+.parent-div {
+  margin-bottom: 20px;
+}
