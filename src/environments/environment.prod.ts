@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://18.116.146.112',
+  apiUrl: 'https://aspnetcore-dev.eba-epsfxbef.us-east-2.elasticbeanstalk.com',
 };
