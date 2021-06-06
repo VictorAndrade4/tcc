@@ -8,7 +8,9 @@ import { BaseService } from '../utils/base.service';
 })
 export class DataService extends BaseService {
   private selectedState: string = '';
+  private selectedCity: string = '';
   state$: Subject<string> = new Subject();
+  city$: Subject<string> = new Subject();
 
   constructor(httpClient: HttpClient) {
     super(httpClient);
@@ -16,6 +18,15 @@ export class DataService extends BaseService {
 
   getStateObservable() {
     return this.state$.asObservable();
+  }
+
+  getCityObservable() {
+    return this.city$.asObservable();
+  }
+
+  set city(newCity: string) {
+    this.selectedCity = newCity;
+    this.city$.next(this.selectedCity);
   }
 
   set state(state: string) {

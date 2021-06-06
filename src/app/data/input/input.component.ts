@@ -2,13 +2,14 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.css'],
 })
-export class InputComponent implements OnInit, OnChanges {
+export class InputComponent implements OnInit {
   control = new FormControl();
   filteredOptions!: Observable<string[]>;
 
@@ -17,21 +18,17 @@ export class InputComponent implements OnInit, OnChanges {
   @Input() placeholder = '';
   @Input() disabled = false;
 
-  constructor() {}
+  constructor(private dataService: DataService) {}
 
   ngOnInit() {
-    this.updateOptions();
-  }
-
-  ngOnChanges(): void {
-    this.updateOptions();
-  }
-
-  private updateOptions() {
     this.filteredOptions = this.control.valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(value))
     );
+  }
+
+  onCitySelection(city: string) {
+    this.dataService.city = city;
   }
 
   private _filter(value: string): string[] {
