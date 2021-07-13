@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'https://localhost:5001',
+  kmlUrl: 'https://kml-cidades.s3.us-east-2.amazonaws.com/',
 };
 
 /*

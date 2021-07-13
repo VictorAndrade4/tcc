@@ -4,16 +4,24 @@ import { of, Subject } from 'rxjs';
 import { BaseService } from 'src/app/utils/base.service';
 import { GOOGLE_API_KEY } from 'src/app/utils/const';
 import { catchError, map } from 'rxjs/operators';
+import { AreaModel } from '../data.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MapService extends BaseService {
-  state$: Subject<string> = new Subject();
-  city$: Subject<string> = new Subject();
+  private selectedAreas$: Subject<AreaModel[]> = new Subject();
 
   constructor(private httpClient: HttpClient) {
     super(httpClient);
+  }
+
+  getSelectedArea$() {
+    return this.selectedAreas$;
+  }
+
+  getSelectedAreasObservable() {
+    return this.selectedAreas$.asObservable();
   }
 
   googleMapsApiLoaded() {

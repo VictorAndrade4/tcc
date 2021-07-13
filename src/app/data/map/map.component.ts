@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { DEFAULT_LAT, DEFAULT_LNG, DEFAULT_ZOOM } from '../../utils/const';
-import { DataService } from '../data.service';
+import { AreaModel, DataService } from '../data.service';
 import { MapService } from './map.service';
+
+let map: google.maps.Map;
 
 @Component({
   selector: 'app-map',
@@ -11,6 +12,9 @@ import { MapService } from './map.service';
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements OnInit {
+  private areasFromCity: Array<AreaModel> = [];
+  private selectedAreas: Array<AreaModel> = [];
+
   panelOpenState = true;
   apiLoaded: Observable<boolean>;
   options: google.maps.MapOptions = {
@@ -28,14 +32,41 @@ export class MapComponent implements OnInit {
   }
 
   handleKmlClick(event: google.maps.KmlMouseEvent) {
-    const codigoSetorCensitario = event.featureData.name;
-    console.log(codigoSetorCensitario);
+    const selectedSectorCode = event.featureData.name;
+
+    const areaAlreadyAdded = this.selectedAreas.some(
+      (area) => area.sectorCode == selectedSectorCode
+    );
+
+    if (!areaAlreadyAdded) {
+      const areaAdded = this.areasFromCity.find(
+        (area) => area.sectorCode == selectedSectorCode
+      );
+
+      if (areaAdded) {
+        this.selectedAreas.push(areaAdded);
+      } else {
+        const areaNotMappedByAnatel = {
+          neighborhood: 'Esta área não possui registros ANATEL',
+          sectorCode: selectedSectorCode,
+          sectorType: 'Desconhecido',
+        } as AreaModel;
+        this.selectedAreas.push(areaNotMappedByAnatel);
+      }
+      this.mapService.getSelectedArea$().next(this.selectedAreas);
+    }
   }
 
   ngOnInit(): void {
-    this.dataService.getCityObservable().subscribe(() => {
-      this.kmlPath =
-        'https://storage.googleapis.com/tcc-anatel-dados/3145901_Ouro%20Branco_Setores_2020.kml';
-    });
+    this.dataService
+      .getCityObservable()
+      .subscribe(this.onCityChange.bind(this));
+  }
+
+  private async onCityChange() {
+    this.areasFromCity = await this.dataService.getAreasFromCity();
+    this.selectedAreas = [];
+
+    this.kmlPath = await this.dataService.getKmlFileUrl();
   }
 }

@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable, Observer, of, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { BaseService } from '../utils/base.service';
+import { environment } from 'src/environments/environment';
 
-export interface AreaDto {
+export interface AreaModel {
   neighborhood: string;
   sectorCode: string;
   sectorType: string;
@@ -46,8 +47,17 @@ export class DataService extends BaseService {
   }
 
   getAreasFromCity() {
-    return this.get<Array<AreaDto>>(
+    return this.get<Array<AreaModel>>(
       `/cobertura/areas?uf=${this.selectedState}&city=${this.selectedCity}`
     ).toPromise();
+  }
+
+  async getKmlFileUrl() {
+    const kmlFileName = await this.get<any>(
+      `/kmlFile?uf=${this.selectedState}&city=${this.selectedCity}`
+    ).toPromise();
+    console.log(environment.kmlUrl + kmlFileName);
+
+    return environment.kmlUrl + kmlFileName;
   }
 }

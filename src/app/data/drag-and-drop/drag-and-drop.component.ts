@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { AreaDto, DataService } from '../data.service';
+import { AreaModel, DataService } from '../data.service';
 import { Observable, of } from 'rxjs';
+import { MapService } from '../map/map.service';
 
 @Component({
   selector: 'app-drag-and-drop',
@@ -13,36 +14,21 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['./drag-and-drop.component.css'],
 })
 export class DragAndDropComponent implements OnInit {
-  notSelected: Array<AreaDto> = [];
-  selected: Array<AreaDto> = [];
-  isLoadingAreas: boolean = false;
+  selected: Array<AreaModel> = [];
+  @Input() isLoadingAreas: boolean = false;
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private dataService: DataService,
+    private mapService: MapService
+  ) {}
 
-  drop(event: CdkDragDrop<AreaDto[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }
-    console.log(this.selected);
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.selected, event.previousIndex, event.currentIndex);
   }
 
   ngOnInit() {
-    this.dataService.getCityObservable().subscribe(async () => {
-      this.isLoadingAreas = true;
-      this.notSelected = await this.dataService.getAreasFromCity();
-      this.isLoadingAreas = false;
-      this.selected = [];
+    this.mapService.getSelectedAreasObservable().subscribe((areas) => {
+      this.selected = areas;
     });
   }
 }
