@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { DEFAULT_LAT, DEFAULT_LNG, DEFAULT_ZOOM } from '../../utils/const';
 import { AreaModel, DataService } from '../data.service';
@@ -11,12 +11,13 @@ let map: google.maps.Map;
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements AfterViewInit, OnInit {
   private areasFromCity: Array<AreaModel> = [];
   private selectedAreas: Array<AreaModel> = [];
 
   panelOpenState = true;
   apiLoaded: Observable<boolean>;
+  isLoading = false;
   options: google.maps.MapOptions = {
     center: { lat: DEFAULT_LAT, lng: DEFAULT_LNG },
     zoom: DEFAULT_ZOOM,
@@ -31,8 +32,43 @@ export class MapComponent implements OnInit {
     this.apiLoaded = mapService.googleMapsApiLoaded();
   }
 
-  handleKmlClick(event: google.maps.KmlMouseEvent) {
-    const selectedSectorCode = event.featureData.name;
+  ngOnInit() {
+    this.dataService
+      .getCityObservable()
+      .subscribe(this.onCityChange.bind(this));
+    this.isLoading = true;
+  }
+
+  ngAfterViewInit() {
+    this.apiLoaded.subscribe(() => {
+      this.isLoading = false;
+      this.startNewMap(null);
+    });
+  }
+
+  private startNewMap(layerUrl: string | null) {
+    if (layerUrl) this.loadGeoJsonMap(layerUrl);
+
+    map?.data.setStyle((feature) => {
+      let color = 'gray';
+      if (feature.getProperty('isColorful')) color = 'blue';
+
+      return {
+        fillColor: color,
+        strokeColor: color,
+        strokeWeight: 5,
+      };
+    });
+
+    map?.data.addListener('click', (event) => {
+      console.log(event.feature.getProperty('Name'));
+      event.feature.setProperty('isColorful', true);
+      this.handleKmlClick(event);
+    });
+  }
+
+  private handleKmlClick(event: any) {
+    const selectedSectorCode = event.feature.getProperty('Name');
 
     const areaAlreadyAdded = this.selectedAreas.some(
       (area) => area.sectorCode == selectedSectorCode
@@ -57,16 +93,20 @@ export class MapComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.dataService
-      .getCityObservable()
-      .subscribe(this.onCityChange.bind(this));
+  private loadGeoJsonMap(layerUrl: string) {
+    map = new google.maps.Map(
+      document.getElementById('map') as HTMLElement,
+      this.options
+    );
+
+    map.data.loadGeoJson(layerUrl);
   }
 
   private async onCityChange() {
     this.areasFromCity = await this.dataService.getAreasFromCity();
     this.selectedAreas = [];
 
-    this.kmlPath = await this.dataService.getKmlFileUrl();
+    const filePath = await this.dataService.getKmlFileUrl();
+    this.startNewMap(filePath);
   }
 }

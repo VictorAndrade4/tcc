@@ -11,14 +11,10 @@
 
         <!-- Content -->
         <ng-template matExpansionPanelContent>
-            <div *ngIf="apiLoaded | async; else loading">
-                <google-map width="100%" [options]="options">
-                    <map-kml-layer [url]="kmlPath" (kmlClick)="handleKmlClick($event)"></map-kml-layer>
-                </google-map>
-            </div>
-            <ng-template #loading>
+            <div *ngIf="isLoading">
                 <mat-spinner class="loading"></mat-spinner>
-            </ng-template>
+            </div>
+            <div id="map"></div>
         </ng-template>
 
     </mat-expansion-panel>
