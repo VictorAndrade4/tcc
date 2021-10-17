@@ -11,9 +11,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { DataModule } from './data/data.module';
 import { MatButtonModule } from '@angular/material/button';
 import { IntroductionComponent } from './introduction/introduction.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { AppviewComponent } from './appview/appview.component';
 
 @NgModule({
-  declarations: [AppComponent, ToolbarComponent, IntroductionComponent],
+  declarations: [AppComponent, ToolbarComponent, IntroductionComponent, HomepageComponent, AppviewComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
