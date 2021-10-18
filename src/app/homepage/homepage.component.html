@@ -1,2 +1,42 @@
-<p>homepage works!</p>
-<p>homepage works!</p><p>homepage works!</p>
+<div class="homepage-content">
+  <div class="homepage-image">
+    <div class="homepage-title">
+      <h1 class="title1">Compador de operadoras</h1>
+      <h3>Te ajudamos a escolher a melhor operadora</h3>
+      <button class="homepage-button" mat-button color="primary" routerLink="/app">Conheça a melhor operadora</button>
+    </div>
+  </div>
+
+  <div class="homepage-text">
+    <span class="title1">
+      Como funciona?
+    </span>
+    <span>
+      Usamos dados de qualidade de serviço e área de cobertura de cada operadora. Todos os dados são públicos e disponibilizados pelo Plano de Dados Abertos da 
+       <a href="https://www.gov.br/anatel/pt-br/dados/dados-abertos">ANATEL</a>.
+    </span>
+    <span>
+      Após a escolha das regiões, usamos os dados da ANATEL para alimentar nosso algoritmo e apresentar a melhor operadora de telefonia celular para cada caso.
+    </span>
+
+    <span class="title1">
+      Sobre o serviço
+    </span>
+    <span>
+      Este serviço foi feito como Trabalho de Conclusão de Curso (TCC) do curso de Engenharia de Telecomunicações da Universidade Federal de São João del-Rei, em 2021. 
+    </span>
+    <span>
+      O código da aplicação pode ser encontrado no <a href="https://github.com/VictorAndrade4/tcc">GitHub</a>, bem como o <a href="https://docs.racket-lang.org/phc-toolkit/not-implemented-yet.html">texto final do TCC</a>.
+    </span>
+  </div>
+
+  <p class="footer-text">
+    Acesse a aplicação <a routerLink="/app">aqui</a> e descubra a melhor operadora de telefonia celular para você.
+  </p>
+
+  <img class="footer-image" src="assets/undraw_Internet_on_the_go_re_vben.svg">
+
+  <footer>
+    @UFSJ - {{currentYear}}
+  </footer>
+</div>
