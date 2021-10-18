@@ -1,5 +1,5 @@
 <mat-accordion>
-    <mat-expansion-panel expanded (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel [(expanded)]="panelOpenState">
         <mat-expansion-panel-header>
             <mat-panel-title>
                 Mapa
@@ -10,12 +10,11 @@
         </mat-expansion-panel-header>
 
         <!-- Content -->
-        <ng-template matExpansionPanelContent>
-            <div *ngIf="isLoading">
+            <div class="loading-container" *ngIf="isLoading">
                 <mat-spinner class="loading"></mat-spinner>
+                <span>Escolha uma cidade primeiro...</span>
             </div>
             <div id="map"></div>
-        </ng-template>
 
     </mat-expansion-panel>
 </mat-accordion>

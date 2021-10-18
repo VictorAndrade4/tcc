@@ -15,7 +15,7 @@ export class MapComponent implements AfterViewInit, OnInit {
   private areasFromCity: Array<AreaModel> = [];
   private selectedAreas: Array<AreaModel> = [];
 
-  panelOpenState = true;
+  panelOpenState = false;
   apiLoaded: Observable<boolean>;
   isLoading = false;
   options: google.maps.MapOptions = {
@@ -41,13 +41,16 @@ export class MapComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
     this.apiLoaded.subscribe(() => {
-      this.isLoading = false;
       this.startNewMap(null);
     });
   }
 
   private startNewMap(layerUrl: string | null) {
-    if (layerUrl) this.loadGeoJsonMap(layerUrl);
+    if (layerUrl) {
+      this.loadGeoJsonMap(layerUrl);
+      this.isLoading = false;
+      this.panelOpenState = true;
+    }
 
     map?.data.setStyle((feature) => {
       let color = 'gray';

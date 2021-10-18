@@ -1,5 +1,12 @@
 .loading {
   margin: 0 auto;
+  margin-bottom: 12px;
+}
+
+.loading-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 #map {
