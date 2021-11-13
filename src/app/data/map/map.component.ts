@@ -62,7 +62,7 @@ export class MapComponent implements AfterViewInit, OnInit {
     });
 
     map?.data.addListener('click', (event) => {
-      console.log(event.feature.getProperty('Name'));
+      console.log(event.feature.getProperty('name'));
       event.feature.setProperty('isColorful', true);
       this.handleKmlClick(event);
     });
