@@ -15,14 +15,14 @@ export class MapComponent implements AfterViewInit, OnInit {
   private areasFromCity: Array<AreaModel> = [];
   private selectedAreas: Array<AreaModel> = [];
 
-  panelOpenState = false;
-  apiLoaded: Observable<boolean>;
-  isLoading = false;
   options: google.maps.MapOptions = {
     center: { lat: DEFAULT_LAT, lng: DEFAULT_LNG },
     zoom: DEFAULT_ZOOM,
     disableDefaultUI: true,
   };
+  panelOpenState = false;
+  apiLoaded: Observable<boolean>;
+  isLoading = false;
   kmlPath = '';
 
   constructor(
@@ -48,8 +48,6 @@ export class MapComponent implements AfterViewInit, OnInit {
   private startNewMap(layerUrl: string | null) {
     if (layerUrl) {
       this.loadGeoJsonMap(layerUrl);
-      this.isLoading = false;
-      this.panelOpenState = true;
     }
 
     map?.data.setStyle((feature) => {
@@ -102,7 +100,20 @@ export class MapComponent implements AfterViewInit, OnInit {
       this.options
     );
 
-    map.data.loadGeoJson(layerUrl);
+    map.data.loadGeoJson(layerUrl, { idPropertyName: 'Cidade' }, (geo) => {
+      this.panelOpenState = true;
+      this.isLoading = false;
+      let cityLatLang: google.maps.LatLng;
+
+      // move to somewhere nearby the selected city
+      geo[0].getGeometry().forEachLatLng((latLang) => {
+        // we can't get only the first latLng :/ So that's the workarround
+        if (!cityLatLang) {
+          cityLatLang = latLang;
+          map.panTo(cityLatLang);
+        }
+      });
+    });
   }
 
   private async onCityChange() {
