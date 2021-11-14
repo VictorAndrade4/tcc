@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DataService } from '../data/data.service';
-import { BaseService } from '../utils/base.service';
 import { State } from 'src/app/utils/models';
 import { STATES_LIST } from '../utils/const';
+import { BaseService } from '../utils/base.service';
 
-interface Geolocation {
+export interface Geolocation {
   city: string;
   state: string;
 }
@@ -18,16 +18,18 @@ export class GeolocationService extends BaseService {
     super(httpClient);
   }
 
-  getUserLocation() {
+  getUserLocation(callback: CallableFunction) {
     this.getFullUrl<Geolocation>('https://geolocation-db.com/json/').subscribe(
       (response) => {
-        this.dataService.state = this.getStateAcronym(response.state);
+        const state = this.getStateAcronym(response.state);
+        this.dataService.state = state;
         this.dataService.city = response.city;
+        callback(state, response.city);
       }
     );
   }
 
-  get states(): State[] {
+  private get states(): State[] {
     return STATES_LIST;
   }
 

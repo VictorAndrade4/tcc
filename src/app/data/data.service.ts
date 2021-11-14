@@ -14,8 +14,8 @@ export interface AreaModel {
   providedIn: 'root',
 })
 export class DataService extends BaseService {
-  private selectedState: string = '';
-  private selectedCity: string = '';
+  protected selectedState: string = '';
+  protected selectedCity: string = '';
   state$: Subject<string> = new Subject();
   city$: Subject<string> = new Subject();
 

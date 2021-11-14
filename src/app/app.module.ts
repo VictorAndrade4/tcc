@@ -13,9 +13,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { IntroductionComponent } from './introduction/introduction.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { AppviewComponent } from './appview/appview.component';
+import { MsgDialogComponent } from './msg-dialog/msg-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [AppComponent, ToolbarComponent, IntroductionComponent, HomepageComponent, AppviewComponent],
+  declarations: [
+    AppComponent,
+    ToolbarComponent,
+    IntroductionComponent,
+    HomepageComponent,
+    AppviewComponent,
+    MsgDialogComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,6 +35,7 @@ import { AppviewComponent } from './appview/appview.component';
     MatIconModule,
     DataModule,
     MatButtonModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
