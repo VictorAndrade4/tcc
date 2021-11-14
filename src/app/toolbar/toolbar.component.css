@@ -13,3 +13,7 @@
 .toolbar {
   margin-bottom: 12px;
 }
+
+.toolbar-header {
+  cursor: pointer;
+}

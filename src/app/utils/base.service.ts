@@ -14,6 +14,10 @@ export class BaseService {
     return this.http.get(url) as Observable<T>;
   }
 
+  protected getFullUrl<T>(route: string) {
+    return this.http.get(route) as Observable<T>;
+  }
+
   private getRoute(route: string | any[]): string {
     if (!Array.isArray(route)) {
       route = [route];

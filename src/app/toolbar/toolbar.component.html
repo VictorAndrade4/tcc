@@ -1,12 +1,12 @@
 <p class="toolbar">
     <mat-toolbar color="primary">
-        <span>Comparador de planos</span>
+        <span routerLink="/home" class="toolbar-header">Comparador de planos</span>
         <span class="spacer"></span>
-        <button mat-button class="button">
+        <button (click)="clickLocation()" mat-button class="button">
             <mat-icon>add_location_alt</mat-icon>
         </button>
-        <button mat-button class="button">
+        <!-- <button mat-button class="button">
             <mat-icon>settings</mat-icon>
-        </button>
+        </button> -->
     </mat-toolbar>
 </p>

@@ -16,5 +16,9 @@ export class StateSelectorComponent implements OnInit {
     this.dataService.state = value;
   }
 
+  get stateSelected$() {
+    return this.dataService.state$;
+  }
+
   ngOnInit(): void {}
 }
