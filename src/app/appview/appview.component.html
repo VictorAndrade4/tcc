@@ -3,5 +3,6 @@
   <app-introduction></app-introduction>
   <app-form></app-form>
   <app-map></app-map>
-  <!-- <app-drag-and-drop [isLoadingAreas]="false"></app-drag-and-drop> -->
+  <button class="button-show-result" (click)="clickButtonShow()" [disabled]="disableButton" mat-raised-button color="primary">Listar mehores operadoras</button>
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 </div>

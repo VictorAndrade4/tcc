@@ -15,6 +15,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { AppviewComponent } from './appview/appview.component';
 import { MsgDialogComponent } from './msg-dialog/msg-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     DataModule,
     MatButtonModule,
     MatDialogModule,
+    MatProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
