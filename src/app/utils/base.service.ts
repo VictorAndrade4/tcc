@@ -18,6 +18,11 @@ export class BaseService {
     return this.http.get(route) as Observable<T>;
   }
 
+  protected post<T>(route: string, body: any) {
+    const url = this.getRoute(route);
+    return this.http.post(url, body) as Observable<T>;
+  }
+
   private getRoute(route: string | any[]): string {
     if (!Array.isArray(route)) {
       route = [route];

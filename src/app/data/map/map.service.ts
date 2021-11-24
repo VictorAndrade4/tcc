@@ -10,7 +10,7 @@ import { AreaModel } from '../data.service';
   providedIn: 'root',
 })
 export class MapService extends BaseService {
-  private selectedAreas$: Subject<AreaModel[]> = new Subject();
+  private selectedAreas$: Subject<string[]> = new Subject();
 
   constructor(private httpClient: HttpClient) {
     super(httpClient);

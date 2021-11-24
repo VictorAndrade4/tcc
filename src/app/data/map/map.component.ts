@@ -12,8 +12,7 @@ let map: google.maps.Map;
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements AfterViewInit, OnInit {
-  private areasFromCity: Array<AreaModel> = [];
-  private selectedAreas: Array<AreaModel> = [];
+  private selectedAreas: Array<string> = [];
 
   options: google.maps.MapOptions = {
     center: { lat: DEFAULT_LAT, lng: DEFAULT_LNG },
@@ -69,27 +68,13 @@ export class MapComponent implements AfterViewInit, OnInit {
   }
 
   private handleKmlClick(event: any) {
-    const selectedSectorCode = event.feature.getProperty('Name');
+    const selectedSectorCode = event.feature.getProperty('name') as string;
 
     const areaAlreadyAdded = this.selectedAreas.some(
-      (area) => area.sectorCode == selectedSectorCode
+      (area) => area == selectedSectorCode
     );
-
     if (!areaAlreadyAdded) {
-      const areaAdded = this.areasFromCity.find(
-        (area) => area.sectorCode == selectedSectorCode
-      );
-
-      if (areaAdded) {
-        this.selectedAreas.push(areaAdded);
-      } else {
-        const areaNotMappedByAnatel = {
-          neighborhood: 'Esta área não possui registros ANATEL',
-          sectorCode: selectedSectorCode,
-          sectorType: 'Desconhecido',
-        } as AreaModel;
-        this.selectedAreas.push(areaNotMappedByAnatel);
-      }
+      this.selectedAreas.push(selectedSectorCode);
       this.mapService.getSelectedArea$().next(this.selectedAreas);
     }
   }
@@ -117,7 +102,6 @@ export class MapComponent implements AfterViewInit, OnInit {
   }
 
   private async onCityChange() {
-    this.areasFromCity = await this.dataService.getAreasFromCity();
     this.selectedAreas = [];
 
     const filePath = await this.dataService.getKmlFileUrl();
