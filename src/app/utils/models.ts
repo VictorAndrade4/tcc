@@ -8,3 +8,9 @@ export interface FuzzyInputModel {
   state: string;
   selectedAreas: string[];
 }
+
+export interface MobileOperatorResult {
+  name: string;
+  rating: number;
+  position: number;
+}

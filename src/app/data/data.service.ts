@@ -3,6 +3,7 @@ import { Observable, Observer, of, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { BaseService } from '../utils/base.service';
 import { environment } from 'src/environments/environment';
+import { FuzzyInputModel, MobileOperatorResult } from '../utils/models';
 
 export interface AreaModel {
   neighborhood: string;
@@ -59,5 +60,9 @@ export class DataService extends BaseService {
     console.log(environment.kmlUrl + kmlFileName);
 
     return environment.kmlUrl + kmlFileName;
+  }
+
+  postForFuzzyAlgorithmResults(input: FuzzyInputModel) {
+    return this.post<MobileOperatorResult[]>('/cobertura', input);
   }
 }

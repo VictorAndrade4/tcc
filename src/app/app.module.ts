@@ -16,6 +16,8 @@ import { AppviewComponent } from './appview/appview.component';
 import { MsgDialogComponent } from './msg-dialog/msg-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ShowResultsComponent } from './show-results/show-results.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     HomepageComponent,
     AppviewComponent,
     MsgDialogComponent,
+    ShowResultsComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatButtonModule,
     MatDialogModule,
     MatProgressBarModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -5,4 +5,5 @@
   <app-map></app-map>
   <button class="button-show-result" (click)="clickButtonShow()" [disabled]="disableButton" mat-raised-button color="primary">Listar mehores operadoras</button>
   <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+  <app-show-results *ngIf="showResults" [results]="apiResult"></app-show-results>
 </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data/data.service';
 import { MapService } from '../data/map/map.service';
-import { FuzzyInputModel } from '../utils/models';
+import { FuzzyInputModel, MobileOperatorResult } from '../utils/models';
 
 @Component({
   selector: 'app-appview',
@@ -14,6 +14,8 @@ export class AppviewComponent implements OnInit {
   city = '';
   state = '';
   areas = [] as string[];
+  apiResult = [] as MobileOperatorResult[];
+  showResults = false;
 
   constructor(
     private mapService: MapService,
@@ -44,8 +46,12 @@ export class AppviewComponent implements OnInit {
       state: this.state,
     } as FuzzyInputModel;
 
-    // call this.dataService to POST to API with this info
-
-    this.loading = false;
+    this.dataService
+      .postForFuzzyAlgorithmResults(model)
+      .subscribe((fuzzyCrispResult) => {
+        this.apiResult = fuzzyCrispResult;
+        this.showResults = true;
+        this.loading = false;
+      });
   }
 }
