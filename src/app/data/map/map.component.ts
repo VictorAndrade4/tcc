@@ -60,7 +60,7 @@ export class MapComponent implements AfterViewInit, OnInit {
       };
     });
 
-    map?.data.addListener('click', (event) => {
+    map?.data.addListener('click', (event: any) => {
       console.log(event.feature.getProperty('name'));
       event.feature.setProperty('isColorful', true);
       this.handleKmlClick(event);
@@ -91,7 +91,7 @@ export class MapComponent implements AfterViewInit, OnInit {
       let cityLatLang: google.maps.LatLng;
 
       // move to somewhere nearby the selected city
-      geo[0].getGeometry().forEachLatLng((latLang) => {
+      geo[0].getGeometry()?.forEachLatLng((latLang) => {
         // we can't get only the first latLng :/ So that's the workarround
         if (!cityLatLang) {
           cityLatLang = latLang;

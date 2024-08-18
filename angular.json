@@ -135,5 +135,8 @@
       }
     }
   },
-  "defaultProject": "tcc-front"
+  "defaultProject": "tcc-front",
+  "cli": {
+    "analytics": "5099e44a-f210-49cc-aee5-c32d076307e9"
+  }
 }
